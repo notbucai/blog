@@ -1,0 +1,15 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+a{
+    text-decoration: none;
+    color: #999;
+    border-bottom: 1px solid #aaa;
+    transition: color .8s,border-color .8s;
+}
+a:hover{
+    color: #333;
+    border-color: #333;
+}
+body{font-family: arial,"Hiragino Sans GB","Microsoft Yahei",sans-serif;} 
