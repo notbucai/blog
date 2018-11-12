@@ -1,58 +1,43 @@
 <template>
-  <section class="axis-posts">
-
-    <template v-for="classify in axisList">
-      <div class="axis-posts-year" :key="classify.id">
-        <h2>{{classify.year}}</h2>
-      </div>
-      <template v-for="archive in classify.list">
-        <article class="axis-post" :key="archive.id">
-          <span class="axis-post-date">{{archive.date}}</span>
-          <router-link to="/" tag="h1" class="axis-post-title">{{archive.title}}</router-link>
-        </article>
-      </template>
-
+  <article class="axis-posts">
+    <div 
+      class="axis-posts-year" 
+      :key="pigeonhole.year">
+      <h2>{{ pigeonhole.year }}</h2>
+    </div>
+    <template v-for="archive in pigeonhole.list">
+      <article 
+        class="axis-post" 
+        :key="archive.id">
+        <span class="axis-post-date">{{ archive.timestamp }}</span>
+        <router-link 
+          :to="`blog/${ archive.id }`" 
+          tag="h1" 
+          class="axis-post-title" 
+          v-text="archive.title"/>
+      </article>
     </template>
-
-  </section>
+  </article>
 </template>
 
 <script>
 export default {
-  name: "axis",
+  name: "Axis",
   data() {
-    return {
-      axisList: [
-        {
-          id: 2018,
-          year: "2018",
-          list: [
-            {
-              id: 32,
-              date: "08-28",
-              title: "标题订单"
-            }
-          ]
-        },
-        {
-          id: 2017,
-          year: "2017",
-          list: [
-            {
-              id: 31,
-              date: "12-28",
-              title:
-                "测试标题测试标题测试标题测试标题测试标题测试标题测试标题测试标题测试标题测试标题"
-            },
-            {
-              id: 30,
-              date: "02-28",
-              title: "标开会题"
-            }
-          ]
-        }
-      ]
-    };
+    return {};
+  },
+  props: {
+    pigeonhole: {
+      type: Object,
+      required: true,
+      default() {
+        return {
+          count: -1,
+          list: [],
+          year: -1
+        };
+      }
+    }
   }
 };
 </script>

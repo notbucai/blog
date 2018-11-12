@@ -5,5 +5,7 @@ module.exports = {
         ''
       ]
     }
-  }
+  },
+
+  lintOnSave: undefined
 }

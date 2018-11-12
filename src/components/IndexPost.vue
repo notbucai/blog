@@ -1,31 +1,46 @@
 <template>
   <article class="post">
     <header class="post-header">
-      <router-link :to="`blog/${post.id}`" class="post-title" tag="h1">{{post.title}}</router-link>
+      <router-link 
+        :to="`blog/${ post.id }`" 
+        class="post-title" 
+        tag="h1" 
+        v-text="post.title"/>
       <div class="post-meta">
-        <span>发表于 {{formatTime(post.timestamp)}}</span>
+        <span>发表于 {{ post.timestamp | timeFormat }}</span>
         <span> | </span>
-        <span>阅读次数 {{post.hits}}</span>
+        <span>阅读次数 {{ post.hits }}</span>
       </div>
     </header>
-    <main class="post-body">
-      {{post.info}}
-    </main>
+    <main 
+      class="post-body" 
+      v-text="post.info"/>
   </article>
 </template>
 
 <script>
-import { formatTime } from "@/plugins/utils";
 
 export default {
   props: {
-    post: Object
+    post: {
+      // 必须提供字段
+      required: true,
+      type: Object,
+      default() {
+        return {
+          id: -1,
+          timestamp: Date.now(),
+          hits: 0,
+          info: ""
+        };
+      }
+    }
   },
   data() {
     return {};
   },
   methods: {
-    formatTime
+    
   }
 };
 </script>
