@@ -1,8 +1,18 @@
 <template>
-  <div class="comment" ref="comment">
+  <div 
+    class="comment" 
+    ref="comment">
     <h2 class="comment-title">评论留言</h2>
-    <form action="" method="post">
-      <textarea name="comment" class="comment-content" v-form_v maxlength="450" :placeholder="info" v-model="commentForm.content" />
+    <form 
+      action="" 
+      method="post">
+      <textarea 
+        name="comment" 
+        class="comment-content" 
+        v-form_v 
+        maxlength="450" 
+        :placeholder="info" 
+        v-model="commentForm.content" />
       <!-- {"bId":1,"rId":-1,"name":"1111111","email":"","content":""} -->
       <input 
         type="text" 
