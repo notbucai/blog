@@ -1,23 +1,23 @@
 import axios from './axios';
 
-const ARTICLEPAGESERVLET = Symbol("ArticlePageServlet");
-const ARTICLESERVLET =  Symbol("ArticleServlet");
+const ARTICLEPAGE = Symbol("ArticlePage");
+const ARTICLE =  Symbol("Article");
 const COMMENTCURRENT = Symbol("CommentCurrent");
 const PIGEONHOLE = Symbol("pigeonhole");
 const ADDCOMMENT = Symbol("AddComment");
 
 const api_names = {
-    [ARTICLEPAGESERVLET]: "http://localhost:222/BucaiBlog/ArticlePageServlet",
-    // http://localhost:222/BucaiBlog/ArticleServlet?id=1113
-    [ARTICLESERVLET]: "http://localhost:222/BucaiBlog/ArticleServlet",
+    [ARTICLEPAGE]: "http://localhost:222/BucaiBlog/ArticlePage",
+    // http://localhost:222/BucaiBlog/Article?id=1113
+    [ARTICLE]: "http://localhost:222/BucaiBlog/Article",
     [COMMENTCURRENT]: "http://localhost:222/BucaiBlog/CommentCurrent",
     [PIGEONHOLE]: "http://localhost:222/BucaiBlog/Pigeonhole",
     [ADDCOMMENT]: "http://localhost:222/BucaiBlog/AddComment",
 }
 
-export const ArticlePageServlet = async (limit, offset) => {
+export const ArticlePage = async (limit, offset) => {
     return new Promise((resolve, reject) => {
-        axios.get(`${api_names[ARTICLEPAGESERVLET]}?limit=${limit}&offset=${offset}`)
+        axios.get(`${api_names[ARTICLEPAGE]}?limit=${limit}&offset=${offset}`)
             .then((res) => {
                 resolve([null, res]);
             })
@@ -31,9 +31,9 @@ export const ArticlePageServlet = async (limit, offset) => {
 }
 
 
-export const ArticleServlet = async (id) => {
+export const Article = async (id) => {
     return new Promise((resolve, reject) => {
-        axios.get(`${api_names[ARTICLESERVLET]}?id=${id}`)
+        axios.get(`${api_names[ARTICLE]}?id=${id}`)
             .then((res) => {
                 resolve([null, res]);
             })

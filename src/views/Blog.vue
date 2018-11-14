@@ -4,11 +4,11 @@
     <!-- {{JSON.stringify($route)}} -->
     <main class="blog-content">
       <header class="blog-header">
-        <h1 class="blog-title">{{ ArticleServlet.title || `发生错误` }}</h1>
+        <h1 class="blog-title">{{ Article.title || `发生错误` }}</h1>
         <p class="blog-meta">
-          <span>发布与 {{ ArticleServlet.timestamp | timeFormat }}</span>
+          <span>发布与 {{ Article.timestamp | timeFormat }}</span>
           <span>|</span>
-          <span>阅读次数 {{ ArticleServlet.hits }}</span>
+          <span>阅读次数 {{ Article.hits }}</span>
         </p>
       </header>
       <main class="blog-main">
@@ -18,7 +18,7 @@
           :toolbars-flag="false" 
           :subfield="false" 
           :preview="false" 
-          v-model="ArticleServlet.content" />
+          v-model="Article.content" />
       </main>
       <Comment :id_o="id" />
     </main>
@@ -46,7 +46,7 @@ export default {
     this.id = id_o;
     if (id_o) {
       this.$store.dispatch("showLoading");
-      const { code, message } = await this.getArticleServlet(id_o);
+      const { code, message } = await this.getArticle(id_o);
     }
     this.$store.dispatch("hideLoading");
   },
@@ -57,10 +57,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(["ArticleServlet"])
+    ...mapState(["Article"])
   },
   methods: {
-    ...mapActions(["getArticleServlet"])
+    ...mapActions(["getArticle"])
   }
 };
 </script>

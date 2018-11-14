@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import {
-  ArticlePageServlet,
-  ArticleServlet,
+  ArticlePage,
+  Article,
   CommentCurrent,
   Pigeonhole,
   AddComment
@@ -16,7 +16,7 @@ export default new Vuex.Store({
     loading: true,
     blogArticles: [],
     blogArticlesTotal: -1,
-    ArticleServlet: {
+    Article: {
       title: "",
       hits: 0,
       id: 0,
@@ -38,8 +38,8 @@ export default new Vuex.Store({
     LOADING(state, data = false) {
       state.loading = data;
     },
-    ARTICLESERVLET(state, data) {
-      state.ArticleServlet = data;
+    ARTICLE(state, data) {
+      state.Article = data;
     },
     CURRENTCOMMENT(state, data) {
       state.currentComment = data;
@@ -57,7 +57,7 @@ export default new Vuex.Store({
         commit('LOADING', false);
       }, 500);
     },
-    async nextArticlePageServlet({ commit, state }) {
+    async nextArticlePage({ commit, state }) {
       const { blogArticles, blogArticlesTotal } = state;
 
       if (blogArticlesTotal != -1 && blogArticles.length >= blogArticlesTotal) {
@@ -67,7 +67,7 @@ export default new Vuex.Store({
         }
       }
 
-      const [error, res] = await ArticlePageServlet(10, blogArticles.length);
+      const [error, res] = await ArticlePage(10, blogArticles.length);
       if (error) {
         return {
           code: -1,
@@ -94,9 +94,9 @@ export default new Vuex.Store({
       };
 
     },
-    async getArticleServlet({ commit }, id) {
+    async getArticle({ commit }, id) {
 
-      const [error, res] = await ArticleServlet(id);
+      const [error, res] = await Article(id);
 
       if (error) {
         return {
@@ -108,7 +108,7 @@ export default new Vuex.Store({
       const { data: { code, message } } = res;
 
       if (code === 0) {
-        commit('ARTICLESERVLET', res.data.result);
+        commit('ARTICLE', res.data.result);
       }
 
       return {

@@ -1,16 +1,8 @@
 <template>
-  <div class="comment">
+  <div class="comment" ref="comment">
     <h2 class="comment-title">评论留言</h2>
-    <form 
-      action="" 
-      method="post">
-      <textarea 
-        name="comment" 
-        class="comment-content" 
-        v-form_v 
-        maxlength="450" 
-        :placeholder="info" 
-        v-model="commentForm.content"/>
+    <form action="" method="post">
+      <textarea name="comment" class="comment-content" v-form_v maxlength="450" :placeholder="info" v-model="commentForm.content" />
       <!-- {"bId":1,"rId":-1,"name":"1111111","email":"","content":""} -->
       <input 
         type="text" 
@@ -19,7 +11,7 @@
         autocomplete="off" 
         v-form_v 
         class="comment-input" 
-        placeholder="* 留言昵称" 
+        placeholder="* 评论昵称" 
         v-model="commentForm.name">
       <input 
         type="text" 
@@ -28,7 +20,7 @@
         autocomplete="off" 
         v-form_v 
         class="comment-input" 
-        placeholder="留言邮箱" 
+        placeholder="评论邮箱" 
         v-model="commentForm.email">
       <button 
         class="comment-submit" 
@@ -145,9 +137,9 @@ export default {
       console.log(rId);
 
       if (rId === -1) {
-        return "这里输入留言内容";
+        return "这里输入评论内容";
       }
-      return `回复 ${this.ReplyName} 的留言`;
+      return `回复 ${this.ReplyName} 的评论`;
     }
   },
   methods: {
@@ -163,6 +155,7 @@ export default {
         console.log(name, content);
 
         this.$toast("名字和内容都不能为空");
+        this.commentForm.sending = false;
         return;
       }
 
@@ -199,13 +192,14 @@ export default {
         return item.id == id;
       });
       if (replyObj) {
+        document.documentElement.scrollTop = this.$refs["comment"].offsetTop;
         this.ReplyName = replyObj.name;
         this.commentForm.rId = id;
       }
     },
-    toAscii(str){
+    toAscii(str) {
       let res = "";
-      for(let i = 0;i<str.length;i++){
+      for (let i = 0; i < str.length; i++) {
         res += String(str.charCodeAt(i));
       }
       return res;
@@ -223,6 +217,7 @@ export default {
   box-sizing: border-box;
 
   &-content {
+    font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
     width: 100%;
     height: 200px;
     border: 2px solid #f1f1f1;
@@ -330,6 +325,7 @@ export default {
           line-height: 24px;
           overflow: hidden;
           pre {
+            font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
             color: #444;
             white-space: pre-wrap;
             letter-spacing: 1px;

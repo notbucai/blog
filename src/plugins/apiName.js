@@ -1,1 +1,1 @@
-export const ARTICLEPAGESERVLET = Symbol("ArticlePageServlet");
+export const ARTICLEPAGE = Symbol("ArticlePage");
