@@ -29,6 +29,8 @@ router.beforeEach((to, from, next) => {
 
 Vue.config.productionTip = false
 import "@/assets/global.css";
+import "@/assets/animate.css";
+// animate.css
 new Vue({
   router,
   store,

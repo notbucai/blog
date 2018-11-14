@@ -4,22 +4,29 @@
     <!-- {{JSON.stringify($route)}} -->
     <main class="blog-content">
       <header class="blog-header">
-        <h1 class="blog-title">{{ Article.title || `发生错误` }}</h1>
+        <h1 class="blog-title animated rubberBand">{{ Article.article.title || `发生错误` }}</h1>
         <p class="blog-meta">
-          <span>发布与 {{ Article.timestamp | timeFormat }}</span>
+          <span>发布与 {{ Article.article.timestamp | timeFormat }}</span>
           <span>|</span>
-          <span>阅读次数 {{ Article.hits }}</span>
+          <span>阅读次数 {{ Article.article.hits }}</span>
         </p>
       </header>
-      <main class="blog-main">
+      <main class="blog-main animated zoomIn">
         <mavon-editor 
           default-open="preview" 
           :box-shadow="false" 
           :toolbars-flag="false" 
           :subfield="false" 
           :preview="false" 
-          v-model="Article.content" />
+          v-model="Article.article.content" />
       </main>
+      <section class="tags">
+        <article class="tag">
+          <router-link 
+            to="" 
+            tag="a">啊啊啊</router-link>
+        </article>
+      </section>
       <Comment :id_o="id" />
     </main>
     <ViewFooter />

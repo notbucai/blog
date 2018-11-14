@@ -3,77 +3,17 @@
     <ViewHeader />
     <main class="index-main">
       <section id="posts">
-        <IndexPost 
-          v-for="item in blogArticles" 
-          :key="item.id" 
-          :post="item" />
-      </section>
 
-      <section class="loading">
-        <svg 
-          v-if="loadFlag" 
-          version="1.1" 
-          id="Layer_1" 
-          xmlns="http://www.w3.org/2000/svg" 
-          xmlns:xlink="http://www.w3.org/1999/xlink" 
-          x="0px" 
-          y="0px" 
-          width="24px" 
-          height="30px" 
-          viewBox="0 0 24 30" 
-          style="enable-background:new 0 0 50 50;" 
-          xml:space="preserve">
-          <rect 
-            x="0" 
-            y="0" 
-            width="4" 
-            height="10" 
-            fill="#409eff" 
-            transform="translate(0 15.1665)">
-            <animateTransform 
-              attributeType="xml" 
-              attributeName="transform" 
-              type="translate" 
-              values="0 0; 0 20; 0 0" 
-              begin="0" 
-              dur="0.9s" 
-              repeatCount="indefinite"/>
-          </rect>
-          <rect 
-            x="10" 
-            y="0" 
-            width="4" 
-            height="10" 
-            fill="#409eff" 
-            transform="translate(0 11.5002)">
-            <animateTransform 
-              attributeType="xml" 
-              attributeName="transform" 
-              type="translate" 
-              values="0 0; 0 20; 0 0" 
-              begin="0.3s" 
-              dur="0.9s" 
-              repeatCount="indefinite"/>
-          </rect>
-          <rect 
-            x="20" 
-            y="0" 
-            width="4" 
-            height="10" 
-            fill="#409eff" 
-            transform="translate(0 1.83315)">
-            <animateTransform 
-              attributeType="xml" 
-              attributeName="transform" 
-              type="translate" 
-              values="0 0; 0 20; 0 0" 
-              begin="0.6s" 
-              dur="0.9s" 
-              repeatCount="indefinite"/>
-          </rect>
-        </svg>
-      </section>
+        <transition-group 
+          enter-active-class="animated fadeInDown" 
+          leave-active-class="animated fadeOutDown">
+          <IndexPost 
+            v-for="item in blogArticles" 
+            :key="item.id" 
+            :post="item" />
+        </transition-group>
 
+      </section>
     </main>
 
     <ViewFooter />
@@ -119,7 +59,7 @@ export default {
     ...mapState(["blogArticles", "loading"])
   },
   methods: {
-    ...mapActions(["nextArticlePage"]),     
+    ...mapActions(["nextArticlePage"]),
     scrollBottem(e) {
       let winHeight = window.innerHeight,
         bodyHeight = document.documentElement.scrollHeight,

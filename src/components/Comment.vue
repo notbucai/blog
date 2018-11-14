@@ -40,33 +40,37 @@
     </form>
     <section class="comment-list">
       <h2 class="comment-list-title">{{ currentComment.length }}条评论</h2>
-      <article 
-        class="comment-list-item" 
-        v-for="(item) in currentComment" 
-        :key="item.id">
-        <div class="comment-list-item-img">
-          <img 
-            :src="`https://cdn.v2ex.com/gravatar/${toAscii(item.name)}?s=48&d=retro`" 
-            alt="" 
-            srcset="">
-        </div>
-        <div class="comment-list-item-main">
-          <div class="comment-list-item-main-info">
-            <p class="comment-list-item-main-info-name">{{ item.name }}</p>
-            <p class="comment-list-item-main-info-time">{{ item.commentTime | timeFormat }}</p>
+      <transition-group 
+        enter-active-class="animated fadeInDown" 
+        leave-active-class="animated fadeOutDown">
+        <article 
+          class="comment-list-item" 
+          v-for="(item) in currentComment" 
+          :key="item.id">
+          <div class="comment-list-item-img">
+            <img 
+              :src="`https://cdn.v2ex.com/gravatar/${toAscii(item.name)}?s=48&d=retro`" 
+              alt="" 
+              srcset="">
           </div>
-          <div class="comment-list-item-main-content">
-            <span 
-              class="at" 
-              v-if="item.rName" 
-              v-text="`@${item.rName || 'PASSERBY A'}`"/>
-            <pre v-text="item.content"/>
+          <div class="comment-list-item-main">
+            <div class="comment-list-item-main-info">
+              <p class="comment-list-item-main-info-name">{{ item.name }}</p>
+              <p class="comment-list-item-main-info-time">{{ item.commentTime | timeFormat }}</p>
+            </div>
+            <div class="comment-list-item-main-content">
+              <span 
+                class="at" 
+                v-if="item.rName" 
+                v-text="`@${item.rName || 'PASSERBY A'}`"/>
+              <pre v-text="item.content"/>
+            </div>
+            <div 
+              class="comment-list-item-main-reply" 
+              @click="reply(item.id)">回复</div>
           </div>
-          <div 
-            class="comment-list-item-main-reply" 
-            @click="reply(item.id)">回复</div>
-        </div>
-      </article>
+        </article>
+      </transition-group>
     </section>
   </div>
 </template>

@@ -17,11 +17,15 @@ export default new Vuex.Store({
     blogArticles: [],
     blogArticlesTotal: -1,
     Article: {
-      title: "",
-      hits: 0,
-      id: 0,
-      info: "",
-      timestamp: 0
+      article:{
+        title: "",
+        hits: 0,
+        id: 0,
+        info: "",
+        timestamp: 0
+      },
+      tags:[]
+      
     },
     currentComment: [
 
