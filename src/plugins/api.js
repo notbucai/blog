@@ -5,6 +5,8 @@ const ARTICLE =  Symbol("Article");
 const COMMENTCURRENT = Symbol("CommentCurrent");
 const PIGEONHOLE = Symbol("pigeonhole");
 const ADDCOMMENT = Symbol("AddComment");
+const TAGS = Symbol("Tags");
+const TAG = Symbol("Tag");
 
 const api_names = {
     [ARTICLEPAGE]: "http://localhost:222/BucaiBlog/ArticlePage",
@@ -13,6 +15,9 @@ const api_names = {
     [COMMENTCURRENT]: "http://localhost:222/BucaiBlog/CommentCurrent",
     [PIGEONHOLE]: "http://localhost:222/BucaiBlog/Pigeonhole",
     [ADDCOMMENT]: "http://localhost:222/BucaiBlog/AddComment",
+    [TAGS]: "http://localhost:222/BucaiBlog/Tags",
+    [TAG]: "http://localhost:222/BucaiBlog/Tag",
+    // http://localhost:222/BucaiBlog/Tag?id=11
 }
 
 export const ArticlePage = async (limit, offset) => {
@@ -79,6 +84,35 @@ export const Pigeonhole = async () => {
 export const AddComment = async (data) => {
     return new Promise((resolve, reject) => {
         axios.post(`${api_names[ADDCOMMENT]}`,data)
+            .then((res) => {
+                resolve([null, res]);
+            })
+            .catch((error) => {
+                reject(error);
+            })
+
+    }).catch((error) => {
+        return [error, null];
+    });
+}
+
+export const Tags = async () => {
+    return new Promise((resolve, reject) => {
+        axios.get(`${api_names[TAGS]}`)
+            .then((res) => {
+                resolve([null, res]);
+            })
+            .catch((error) => {
+                reject(error);
+            })
+    }).catch((error) => {
+        return [error, null];
+    });
+}
+
+export const Tag = async (id) => {
+    return new Promise((resolve, reject) => {
+        axios.get(`${api_names[TAG]}?id=${id}`)
             .then((res) => {
                 resolve([null, res]);
             })

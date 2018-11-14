@@ -6,7 +6,9 @@ import {
   Article,
   CommentCurrent,
   Pigeonhole,
-  AddComment
+  AddComment,
+  Tags,
+  Tag
 } from "@/plugins/api";
 
 Vue.use(Vuex)
@@ -17,20 +19,24 @@ export default new Vuex.Store({
     blogArticles: [],
     blogArticlesTotal: -1,
     Article: {
-      article:{
+      article: {
         title: "",
         hits: 0,
         id: 0,
         info: "",
         timestamp: 0
       },
-      tags:[]
-      
+      tags: [],
     },
     currentComment: [
 
     ],
     Pigeonhole: [],
+    Tags: [],
+    TagArticle: {
+      list: [],
+      t_name: ""
+    },
   },
   mutations: {
     BLOGARTICLESTOTAL(state, data) {
@@ -50,7 +56,13 @@ export default new Vuex.Store({
     },
     PIGEONHOLE(state, data) {
       state.Pigeonhole = data;
-    }
+    },
+    TAGS(state, data) {
+      state.Tags = data;
+    },
+    TAGARTICLE(state, data) {
+      state.TagArticle = data;
+    },
   },
   actions: {
     async showLoading({ commit }) {
@@ -161,9 +173,9 @@ export default new Vuex.Store({
     async addComment({ commit }, {
       bId, rId, name, email, content
     } = {}) {
-      
-      if(!name || !content){
-        return{
+
+      if (!name || !content) {
+        return {
           code: -1,
           message: "不能为空"
         }
@@ -187,6 +199,54 @@ export default new Vuex.Store({
         code, message
       }
 
-    }
+    },
+    async getTags({ commit }) {
+
+      const [error, res] = await Tags();
+      if (error) {
+        return {
+          code: -1,
+          message: error.message
+        };
+      }
+
+      const { data: { code, message } } = res;
+
+      if (code === 0) {
+
+        const { result } = res.data;
+
+        if (result.length != 0) {
+          commit('TAGS', result);
+        }
+      }
+
+      return {
+        message,
+        code
+      };
+    },
+    async getTagArticles({ commit }, id) {
+
+      const [error, res] = await Tag(id);
+
+      if (error) {
+        return {
+          code: -1,
+          message: error.message
+        };
+      }
+
+      const { data: { code, message } } = res;
+
+      if (code === 0) {
+        commit('TAGARTICLE', res.data.result);
+      }
+
+      return {
+        code, message
+      }
+
+    },
   }
 })

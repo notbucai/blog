@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Index from './views/Index.vue'
 import Archives from './views/Archives.vue'
 import Blog from './views/Blog.vue'
+import Tags from './views/Tags.vue'
+import Tag from './views/Tag.vue'
 // Blog
 Vue.use(Router)
 
@@ -31,7 +33,17 @@ export default new Router({
       path: "/blog/:id",
       name: "博客",
       component: Blog
-    }
+    },
+    {
+      path: "/tags",
+      name: "标签",
+      component: Tags
+    },
+    {
+      path: "/tag/:id",
+      name: " - 标签",
+      component: Tag
+    },
     // {
     //   path: '/about',
     //   name: 'about',

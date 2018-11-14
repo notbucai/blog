@@ -12,6 +12,9 @@
           <li>
             <router-link to="/archives">归档</router-link>
           </li>
+          <li>
+            <router-link to="/tags">标签</router-link>
+          </li>
         </ul>
       </div>
     </div>

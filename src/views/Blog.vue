@@ -20,16 +20,11 @@
           :preview="false" 
           v-model="Article.article.content" />
       </main>
-      <section class="tags">
-        <article class="tag">
-          <router-link 
-            to="" 
-            tag="a">啊啊啊</router-link>
-        </article>
-      </section>
+      <Tags :tags="Article.tags"/>
       <Comment :id_o="id" />
     </main>
     <ViewFooter />
+    <BackTop/>
   </div>
 </template>
 
@@ -37,6 +32,10 @@
 import ViewHeader from "@/components/ViewHeader.vue";
 import ViewFooter from "@/components/ViewFooter.vue";
 import Comment from "@/components/Comment.vue";
+import Tags from "@/components/Tags.vue";
+
+import BackTop from "@/components/BackTop.vue";
+
 import { mapState, mapActions } from "vuex";
 
 export default {
@@ -44,7 +43,7 @@ export default {
   components: {
     ViewHeader,
     ViewFooter,
-    Comment
+    Comment,Tags,BackTop
   },
   async created() {
     // console.log(this.$route.params.id);
@@ -55,6 +54,7 @@ export default {
       this.$store.dispatch("showLoading");
       const { code, message } = await this.getArticle(id_o);
     }
+    document.title = this.Article.article.title +" - "+document.title ;
     this.$store.dispatch("hideLoading");
   },
   data() {
@@ -73,6 +73,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .blog {
   &-content {
     width: 900px;
