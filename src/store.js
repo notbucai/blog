@@ -8,7 +8,8 @@ import {
   Pigeonhole,
   AddComment,
   Tags,
-  Tag
+  Tag,
+  LinksRand,
 } from "@/plugins/api";
 
 Vue.use(Vuex)
@@ -37,6 +38,7 @@ export default new Vuex.Store({
       list: [],
       t_name: ""
     },
+    LinksRand:[],
   },
   mutations: {
     BLOGARTICLESTOTAL(state, data) {
@@ -62,6 +64,9 @@ export default new Vuex.Store({
     },
     TAGARTICLE(state, data) {
       state.TagArticle = data;
+    },
+    LINKSRAND(state, data) {
+      state.LinksRand = data;
     },
   },
   actions: {
@@ -241,6 +246,28 @@ export default new Vuex.Store({
 
       if (code === 0) {
         commit('TAGARTICLE', res.data.result);
+      }
+
+      return {
+        code, message
+      }
+
+    },
+    async getLinksRand({ commit }) {
+
+      const [error, res] = await LinksRand();
+
+      if (error) {
+        return {
+          code: -1,
+          message: error.message
+        };
+      }
+
+      const { data: { code, message } } = res;
+
+      if (code === 0) {
+        commit('LINKSRAND', res.data.result);
       }
 
       return {

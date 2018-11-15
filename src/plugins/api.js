@@ -7,6 +7,7 @@ const PIGEONHOLE = Symbol("pigeonhole");
 const ADDCOMMENT = Symbol("AddComment");
 const TAGS = Symbol("Tags");
 const TAG = Symbol("Tag");
+const LINKSRAND = Symbol("LinksRand");
 
 const api_names = {
     [ARTICLEPAGE]: "http://localhost:222/BucaiBlog/ArticlePage",
@@ -17,7 +18,10 @@ const api_names = {
     [ADDCOMMENT]: "http://localhost:222/BucaiBlog/AddComment",
     [TAGS]: "http://localhost:222/BucaiBlog/Tags",
     [TAG]: "http://localhost:222/BucaiBlog/Tag",
+    [LINKSRAND]: "http://localhost:222/BucaiBlog/LinksRand",
     // http://localhost:222/BucaiBlog/Tag?id=11
+    // http://localhost:222/BucaiBlog/LinksRand
+
 }
 
 export const ArticlePage = async (limit, offset) => {
@@ -113,6 +117,21 @@ export const Tags = async () => {
 export const Tag = async (id) => {
     return new Promise((resolve, reject) => {
         axios.get(`${api_names[TAG]}?id=${id}`)
+            .then((res) => {
+                resolve([null, res]);
+            })
+            .catch((error) => {
+                reject(error);
+            })
+
+    }).catch((error) => {
+        return [error, null];
+    });
+}
+
+export const LinksRand = async () => {
+    return new Promise((resolve, reject) => {
+        axios.get(`${api_names[LINKSRAND]}`)
             .then((res) => {
                 resolve([null, res]);
             })

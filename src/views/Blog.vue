@@ -2,7 +2,7 @@
   <div class="blog">
     <ViewHeader />
     <!-- {{JSON.stringify($route)}} -->
-    <main class="blog-content">
+    <main class="blog-content contain">
       <header class="blog-header">
         <h1 class="blog-title animated rubberBand">{{ Article.article.title || `发生错误` }}</h1>
         <p class="blog-meta">
@@ -75,10 +75,7 @@ export default {
 <style lang="scss" scoped>
 
 .blog {
-  &-content {
-    width: 900px;
-    margin: 60px auto 30px;
-  }
+  
   &-header {
     text-align: center;
   }

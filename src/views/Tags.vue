@@ -1,25 +1,16 @@
 <template>
   <div class="tags">
     <ViewHeader />
-    <main class="tags-main">
+    <main class="tags-main contain">
       <div class="tags-title">
         <p>目前共计 {{ Tags.length }} 个标签</p>
       </div>
-      <div class="tags-list">
 
-        <transition-group 
-          enter-active-class="animated slideInUp" 
-          leave-active-class="animated slideOutUp">
-          <template v-for="(item) in Tags">
-            <router-link 
-              class="tag" 
-              :key="item.tID" 
-              :to="`/tag/${item.tID}`" 
-              v-weightStyle="item.count">{{ item.name }}</router-link>
-          </template>
-        </transition-group>
-
-      </div>
+      <transition-group tag="div" class="tags-list" enter-active-class="animated slideInUp" leave-active-class="animated slideOutUp">
+        <template v-for="(item) in Tags">
+          <router-link class="tag" :key="item.tID" :to="`/tag/${item.tID}`" v-weightStyle="item.count">{{ item.name }}</router-link>
+        </template>
+      </transition-group>
 
     </main>
     <ViewFooter />
@@ -42,7 +33,7 @@ export default {
   },
   directives: {
     weightStyle(el, { value }) {
-    //   console.log(el, value);
+      //   console.log(el, value);
       let style = "color:#ccc;font-size:12px";
       if (value > 10) {
         style = "color:#000;font-size:28px";
@@ -75,8 +66,7 @@ export default {
 <style scoped lang="scss">
 .tags {
   &-main {
-    width: 900px;
-    margin: 60px auto;
+    padding: 10px;
     min-height: 400px;
   }
   &-list {

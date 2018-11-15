@@ -93,4 +93,9 @@ export default {
     line-height: 28px;
   }
 }
+@media screen and (max-width: 900px) {
+  .post {
+    margin-top: 50px;
+  }
+}
 </style>

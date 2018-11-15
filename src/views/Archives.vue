@@ -1,7 +1,7 @@
 <template>
   <div class="archives">
     <ViewHeader />
-    <main class="archives-main">
+    <main class="archives-main contain">
 
       <section>
         
@@ -53,8 +53,7 @@ export default {
 <style lang="scss">
 .archives {
   &-main {
-    width: 900px;
-    margin: 40px auto;
+    padding: 10px;
   }
 }
 </style>

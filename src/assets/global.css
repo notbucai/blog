@@ -12,6 +12,22 @@ a:hover{
     color: #333;
     border-color: #333;
 }
+/* webkit, opera, IE9 */
+::selection { background:#000;color: #fff; }
+/* mozilla firefox */
+::-moz-selection { background:#000;color: #fff; }
+
+.contain {
+  width: 900px;
+  margin: 40px auto;
+}
+@media screen and (max-width: 900px) {
+  .contain {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
 @font-face {
     font-family: "Source Sans Pro";
     src: local("Source Sans Pro"), url("/fonts/SourceSansPro-Regular.ttf");

@@ -18,7 +18,8 @@
   &-contain {
     width: 900px;
     margin: 0 auto;
-    padding: 10px 0;
+    padding: 10px 10px;
+    box-sizing: border-box;
   }
   &-info {
     color: #666;
@@ -27,6 +28,13 @@
   .gov {
     > a {
       font-size: 12px;
+    }
+  }
+}
+@media screen and (max-width: 900px) {
+  .footer {
+    &-contain {
+      width: 100%;
     }
   }
 }

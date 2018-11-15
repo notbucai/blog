@@ -1,16 +1,11 @@
 <template>
   <div class="tag">
     <ViewHeader />
-    <main class="tag-main">
+    <main class="contain tag-main">
 
-      <AxisTitle 
-        :title="TagArticle.t_name || `错误`" 
-        subhead="标签" />
+      <AxisTitle :title="TagArticle.t_name || `错误`" subhead="标签" />
 
-      <AxisItem 
-        v-for="archive in TagArticle.list" 
-        :key="archive.id" 
-        :archive="archive" />
+      <AxisItem v-for="archive in TagArticle.list" :key="archive.id" :archive="archive" />
 
     </main>
     <ViewFooter />
@@ -55,8 +50,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.tag-main {
-  width: 900px;
-  margin: 40px auto;
+.tag-main{
+  padding: 10px;
 }
 </style>

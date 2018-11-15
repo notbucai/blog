@@ -5,6 +5,7 @@ import Archives from './views/Archives.vue'
 import Blog from './views/Blog.vue'
 import Tags from './views/Tags.vue'
 import Tag from './views/Tag.vue'
+import Links from './views/Links.vue'
 // Blog
 Vue.use(Router)
 
@@ -43,6 +44,11 @@ export default new Router({
       path: "/tag/:id",
       name: " - 标签",
       component: Tag
+    },
+    {
+      path: "/links",
+      name: "Dalao 们",
+      component: Links
     },
     // {
     //   path: '/about',
