@@ -25,7 +25,7 @@ export default {
   name: "Tag",
   components: { ViewHeader, ViewFooter, AxisItem, AxisTitle },
   async created() {
-    console.log(this.$route);
+    // console.log(this.$route);
 
     const { id } = this.$route.params;
 

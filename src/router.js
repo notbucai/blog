@@ -6,13 +6,14 @@ import Blog from './views/Blog.vue'
 import Tags from './views/Tags.vue'
 import Tag from './views/Tag.vue'
 import Links from './views/Links.vue'
+
 // Blog
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else {
@@ -50,13 +51,16 @@ export default new Router({
       name: "Dalao 们",
       component: Links
     },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (about.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    // }
+    {
+      path: '/bucai_admin',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('./views/Admin.vue'),
+      
+      children: [
+        { path: '',name:"后台管理", component: ()=>import('./views/admin/Index.vue') },
+      ]
+    }
   ]
 })

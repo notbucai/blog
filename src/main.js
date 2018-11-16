@@ -19,7 +19,7 @@ router.beforeEach((to, from, next) => {
   // console.log(to.path);
   let title = to.name;
   if (to.path != "/") {
-    title += " - Bucai' Blog"
+    title += " - Bucai s' Blog"
   }
   if (to.name) {
     document.title = title

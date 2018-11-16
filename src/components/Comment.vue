@@ -1,18 +1,8 @@
 <template>
-  <div 
-    class="comment" 
-    ref="comment">
+  <div class="comment" ref="comment">
     <h2 class="comment-title">评论留言</h2>
-    <form 
-      action="" 
-      method="post">
-      <textarea 
-        name="comment" 
-        class="comment-content" 
-        v-form_v 
-        maxlength="450" 
-        :placeholder="info" 
-        v-model="commentForm.content" />
+    <form action="" method="post">
+      <textarea name="comment" class="comment-content" v-form_v maxlength="450" :placeholder="info" v-model="commentForm.content" />
       <!-- {"bId":1,"rId":-1,"name":"1111111","email":"","content":""} -->
       <input 
         type="text" 
@@ -90,19 +80,19 @@ export default {
   components: {},
   directives: {
     form_v: {
-      inserted(el) {
-        console.log(111);
-      },
+      // inserted(el) {
+      //   console.log(111);
+      // },
       update(el) {
         const { value, name } = el;
 
         if (!value) {
           return;
         }
-
+        let rex = null;
         switch (name) {
           case "email":
-            let rex = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+            rex = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
 
             if (rex.test(value)) {
               el.style = "";
@@ -148,7 +138,7 @@ export default {
     // 这里输入留言内容
     info() {
       const rId = this.commentForm.rId;
-      console.log(rId);
+      // console.log(rId);
 
       if (rId === -1) {
         return "这里输入评论内容";
@@ -166,7 +156,7 @@ export default {
       }
       this.commentForm.sending = true;
       if (!name || !content) {
-        console.log(name, content);
+        // console.log(name, content);
 
         this.$toast("名字和内容都不能为空");
         this.commentForm.sending = false;
@@ -198,10 +188,10 @@ export default {
       // console.log(this.$toast);
     },
     reply(id) {
-      console.log(this.currentComment);
+      // console.log(this.currentComment);
 
       const replyObj = this.currentComment.find(item => {
-        console.log(item);
+        // console.log(item);
 
         return item.id == id;
       });

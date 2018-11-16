@@ -35,7 +35,6 @@ import ViewFooter from "@/components/ViewFooter.vue";
 import IndexPost from "@/components/IndexPost.vue";
 import BackTop from "@/components/BackTop.vue";
 
-import { ArticlePage } from "@/plugins/api";
 import { mapState, mapActions } from "vuex";
 
 export default {
@@ -49,7 +48,7 @@ export default {
   async created() {
     const { length } = this.blogArticles;
     if (length <= 0) {
-      const { code, message } = await this.nextArticlePage();
+       await this.nextArticlePage();
 
       this.$store.dispatch("hideLoading");
     }
@@ -67,7 +66,7 @@ export default {
   },
   methods: {
     ...mapActions(["nextArticlePage"]),
-    scrollBottem(e) {
+    scrollBottem() {
       let winHeight = window.innerHeight,
         bodyHeight = document.documentElement.scrollHeight,
         boduTop = document.documentElement.scrollTop;
@@ -81,9 +80,9 @@ export default {
 
         setTimeout(async () => {
           boduTop = document.documentElement.scrollTop;
-          const { code, message } = await this.nextArticlePage();
+         const {code} = await this.nextArticlePage();
           // 进行一系列的xxoo
-          console.log(code, message);
+          // console.log(code, message);
 
           if (code == 3) {
             window.removeEventListener("scroll", this.scrollBottem);
