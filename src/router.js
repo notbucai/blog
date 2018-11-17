@@ -59,7 +59,7 @@ export default new Router({
       component: () => import('./views/Admin.vue'),
       
       children: [
-        { path: '',name:"后台管理", component: ()=>import('./views/admin/Index.vue') },
+        { path: '',name:"后台首页", component: ()=>import('./views/admin/Index.vue') },
       ]
     }
   ]

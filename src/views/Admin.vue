@@ -3,45 +3,30 @@
     <el-container>
       <el-header>
         <h1 class="logo">
-          admin
+          Admin
         </h1>
       </el-header>
       <el-container>
         <el-aside width="240px">
-          <el-menu default-active="2" class="el-menu-vertical-demo" background-color="#202125" text-color="#efefef" active-text-color="#f44336">
-            <el-submenu index="1">
-              <template slot="title">
-                <i class="el-icon-location"></i>
-                <span>导航一</span>
-              </template>
-              <el-menu-item-group>
-                <template slot="title">分组一</template>
-                <el-menu-item index="1-1">选项1</el-menu-item>
-                <el-menu-item index="1-2">选项2</el-menu-item>
-              </el-menu-item-group>
-              <el-menu-item-group title="分组2">
-                <el-menu-item index="1-3">选项3</el-menu-item>
-              </el-menu-item-group>
-              <el-submenu index="1-4">
-                <template slot="title">选项4</template>
-                <el-menu-item index="1-4-1">选项1</el-menu-item>
-              </el-submenu>
-            </el-submenu>
+          <el-menu :default-active="$route.path" :router="true" class="el-menu-vertical-demo" background-color="#202125" text-color="#efefef" active-text-color="#f44336">
+
+            <el-menu-item index="/bucai_admin">
+              <i class="iconfont o icon-home"></i>
+              <span slot="title">首页</span>
+            </el-menu-item>
+
             <el-menu-item index="2">
               <i class="el-icon-menu"></i>
-              <span slot="title">导航二</span>
+              <span slot="title">文章管理</span>
             </el-menu-item>
-            <el-menu-item index="3" disabled>
-              <i class="el-icon-document"></i>
-              <span slot="title">导航三</span>
-            </el-menu-item>
-            <el-menu-item index="4">
-              <i class="el-icon-setting"></i>
-              <span slot="title">导航四</span>
-            </el-menu-item>
+
           </el-menu>
         </el-aside>
         <el-main>
+          <el-breadcrumb separator="/">
+            <el-breadcrumb-item :to="{ path: '/bucai_admin' }">后台首页</el-breadcrumb-item>
+            <el-breadcrumb-item>{{$route.name}}</el-breadcrumb-item>
+          </el-breadcrumb>
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -60,28 +45,43 @@ export default {
   components: {},
   methods: {
     // handleOpen(key, keyPath) {
-      // console.log(key, keyPath);
+    // console.log(key, keyPath);
     // },
     // handleClose(key, keyPath) {
-     // console.log(key, keyPath);
+    // console.log(key, keyPath);
     // }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-$Main-color:#f44336;
+$Main-color: #f44336;
 .el {
   &-header {
     background-color: #000;
     display: flex;
     align-items: center;
+    box-shadow: 10px 1px 15px rgba(0, 0, 0, 0.3);
+    z-index: 10;
   }
   &-aside {
     background-color: #202125;
   }
   &-menu {
     border-right: none;
+  }
+  &-breadcrumb{
+    margin-bottom: 20px;
+  }
+}
+.iconfont {
+  &.o {
+    margin-right: 5px;
+    width: 24px;
+    text-align: center;
+    font-size: 18px;
+    vertical-align: middle;
+    display: inline-block;
   }
 }
 .admin {
@@ -95,7 +95,8 @@ $Main-color:#f44336;
 }
 
 .logo {
-  color: $Main-color;
+  color: $Main-color * 0.6;
   font-size: 22px;
+  letter-spacing: 1px;
 }
 </style>
