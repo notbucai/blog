@@ -8,14 +8,14 @@
       </el-header>
       <el-container>
         <el-aside width="240px">
-          <el-menu :default-active="$route.path" :router="true" class="el-menu-vertical-demo" background-color="#202125" text-color="#efefef" active-text-color="#f44336">
+          <el-menu :default-active="$route.path" :router="true" class="el-menu-vertical-demo" background-color="#000" text-color="#fff" active-text-color="#ffd04b">
 
             <el-menu-item index="/bucai_admin">
               <i class="iconfont o icon-home"></i>
               <span slot="title">首页</span>
             </el-menu-item>
 
-            <el-menu-item index="2">
+            <el-menu-item index="/bucai_admin/article">
               <i class="el-icon-menu"></i>
               <span slot="title">文章管理</span>
             </el-menu-item>
@@ -55,22 +55,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$Main-color: #f44336;
+$Main-color: #909399;
 .el {
   &-header {
-    background-color: #000;
+    background-color: #fff;
     display: flex;
     align-items: center;
-    box-shadow: 10px 1px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 10px 1px 15px rgba(0, 0, 0, 0.2);
     z-index: 10;
   }
   &-aside {
-    background-color: #202125;
+    background-color: #000;
   }
   &-menu {
     border-right: none;
   }
-  &-breadcrumb{
+  &-breadcrumb {
     margin-bottom: 20px;
   }
 }

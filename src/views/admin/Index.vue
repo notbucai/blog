@@ -6,6 +6,8 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+
+import { WebSocketUrl } from "@/config/config.js";
 // 引入 ECharts 主模块
 var echarts = require("echarts/lib/echarts");
 require("echarts/lib/chart/line");
@@ -18,24 +20,28 @@ export default {
   name: "AdminIndex",
 
   components: {},
+  created() {
+    const adminSocket = new WebSocket(
+      WebSocketUrl + "BucaiBlog/websocket/admin"
+    );
+    adminSocket.addEventListener("open", () => {
+      adminSocket.addEventListener("message", ({ returnValue, data }) => {
+        if (returnValue) {
+          // console.log(JSON.parse(data));
+          this.drawLine(JSON.parse(data));
+        }
+      });
+    });
+  },
   mounted() {
-    this.drawLine();
+    // this.drawLine({});
+    this.init();
   },
   data() {
-    return {
-      dataLine: [
-        {
-          date: 1542351311142,
-          value: {
-            cpu: 0,
-            ram: 0
-          }
-        }
-      ],
-      dataLineTime: []
-    };
+    return {};
   },
   computed: {
+    ...mapState(["dataLine"]),
     option() {
       return {
         xAxis: {
@@ -131,6 +137,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["getDataLine", "initDataLine"]),
     rangArr(len) {
       return new Array(len).fill({
         date: Date.now(),
@@ -140,35 +147,21 @@ export default {
         }
       });
     },
-    drawLine() {
+    init() {
+      const myChart = (this.myChart = echarts.init(this.$refs["myChart"]));
+      // 绘制图表
+      this.initDataLine(this.rangArr(30));
+      //   console.log(this.dataLine);
+      myChart.setOption(this.option);
+    },
+    drawLine(data) {
       // 基于准备好的dom，初始化echarts实例
       //   console.log(this.$refs.myChart);
+      // console.log(this.dataLine);
 
-      var myChart = echarts.init(this.$refs["myChart"]);
-      // 绘制图表
-      this.dataLine = this.rangArr(30);
-      //   console.log(this.dataLine);
+      this.getDataLine(data);
 
-      for (let i = 0; i < 60; i++) {
-        this.dataLineTime[i] = i + 1;
-      }
-      myChart.setOption(this.option);
-      setInterval(() => {
-        this.dataLine = [
-          ...this.dataLine.filter((v, i) => {
-            return i;
-          }),
-          {
-            date: Date.now(),
-            value: {
-              cpu: (Math.random() * 100) | 0,
-              ram: (Math.random() * 100) | 0
-            }
-          }
-        ];
-
-        myChart.setOption(this.option);
-      }, 1000);
+      this.myChart.setOption(this.option);
     }
   }
 };
@@ -178,6 +171,7 @@ export default {
 <style scoped lang="scss">
 .admin-index {
   background: #f6f6f6;
-  height: 100%;
+  height: auto;
+  box-sizing: border-box;
 }
 </style>

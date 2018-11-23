@@ -38,7 +38,17 @@ export default new Vuex.Store({
       list: [],
       t_name: ""
     },
-    LinksRand:[],
+    LinksRand: [],
+    dataLine: [
+      {
+        date: 1542351311142,
+        value: {
+          cpu: 0,
+          ram: 0
+        }
+      }
+    ],
+    ArticleList:[]
   },
   mutations: {
     BLOGARTICLESTOTAL(state, data) {
@@ -68,6 +78,12 @@ export default new Vuex.Store({
     LINKSRAND(state, data) {
       state.LinksRand = data;
     },
+    DATALINE(state, data) {
+      state.dataLine = data;
+    },
+    ARTICLELIST(state, data){
+      state.ArticleList = data;
+    }
   },
   actions: {
     async showLoading({ commit }) {
@@ -178,7 +194,8 @@ export default new Vuex.Store({
     async addComment({ commit }, {
       bId, rId, name, email, content
     } = {}) {
-
+      if(!commit) return;
+      
       if (!name || !content) {
         return {
           code: -1,
@@ -274,6 +291,19 @@ export default new Vuex.Store({
         code, message
       }
 
+    },
+    async initDataLine({ commit }, data) {
+      commit('DATALINE', data);
+    },
+    getDataLine({ commit, state }, data) {
+      const { dataLine } = state;
+      const dataLine_ok = [
+        ...dataLine.filter((v, i) => {
+          return i;
+        }),
+        data
+      ];
+      commit('DATALINE', dataLine_ok);
     },
   }
 })

@@ -1,7 +1,10 @@
 import axios from './axios';
 
+import { ApiUrl } from '@/config/config.js'
+
+
 const ARTICLEPAGE = Symbol("ArticlePage");
-const ARTICLE =  Symbol("Article");
+const ARTICLE = Symbol("Article");
 const COMMENTCURRENT = Symbol("CommentCurrent");
 const PIGEONHOLE = Symbol("pigeonhole");
 const ADDCOMMENT = Symbol("AddComment");
@@ -10,15 +13,15 @@ const TAG = Symbol("Tag");
 const LINKSRAND = Symbol("LinksRand");
 
 const api_names = {
-    [ARTICLEPAGE]: "http://localhost:222/BucaiBlog/ArticlePage",
+    [ARTICLEPAGE]: ApiUrl + "/ArticlePage",
     // http://localhost:222/BucaiBlog/Article?id=1113
-    [ARTICLE]: "http://localhost:222/BucaiBlog/Article",
-    [COMMENTCURRENT]: "http://localhost:222/BucaiBlog/CommentCurrent",
-    [PIGEONHOLE]: "http://localhost:222/BucaiBlog/Pigeonhole",
-    [ADDCOMMENT]: "http://localhost:222/BucaiBlog/AddComment",
-    [TAGS]: "http://localhost:222/BucaiBlog/Tags",
-    [TAG]: "http://localhost:222/BucaiBlog/Tag",
-    [LINKSRAND]: "http://localhost:222/BucaiBlog/LinksRand",
+    [ARTICLE]: ApiUrl + "/Article",
+    [COMMENTCURRENT]: ApiUrl + "/CommentCurrent",
+    [PIGEONHOLE]: ApiUrl + "/Pigeonhole",
+    [ADDCOMMENT]: ApiUrl + "/AddComment",
+    [TAGS]: ApiUrl + "/Tags",
+    [TAG]: ApiUrl + "/Tag",
+    [LINKSRAND]: ApiUrl + "/LinksRand",
     // http://localhost:222/BucaiBlog/Tag?id=11
     // http://localhost:222/BucaiBlog/LinksRand
 
@@ -87,7 +90,7 @@ export const Pigeonhole = async () => {
 }
 export const AddComment = async (data) => {
     return new Promise((resolve, reject) => {
-        axios.post(`${api_names[ADDCOMMENT]}`,data)
+        axios.post(`${api_names[ADDCOMMENT]}`, data)
             .then((res) => {
                 resolve([null, res]);
             })
