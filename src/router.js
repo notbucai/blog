@@ -52,6 +52,11 @@ export default new Router({
       component: Links
     },
     {
+      path: "/login",
+      name: "登陆",
+      component: () => import('./views/Login.vue')
+    },
+    {
       path: '/bucai_admin',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
@@ -61,6 +66,8 @@ export default new Router({
       children: [
         { path: '',name:"后台首页", component: ()=>import('./views/admin/Index.vue') },
         { path: 'article',name:"文章管理", component: ()=>import('./views/admin/Articles.vue') },
+        { path: 'addAndEditArticle',name:"文章新建/编辑", component: ()=>import('./views/admin/AddAndEditArticle.vue') },
+        { path: 'links',name:"友情链接管理", component: ()=>import('./views/admin/Links.vue') },
       ]
     }
   ]

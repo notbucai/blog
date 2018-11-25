@@ -10,6 +10,8 @@ import {
   Tags,
   Tag,
   LinksRand,
+  AdminArticle,
+  Links
 } from "@/plugins/api";
 
 Vue.use(Vuex)
@@ -39,6 +41,7 @@ export default new Vuex.Store({
       t_name: ""
     },
     LinksRand: [],
+    Links: [],
     dataLine: [
       {
         date: 1542351311142,
@@ -48,7 +51,7 @@ export default new Vuex.Store({
         }
       }
     ],
-    ArticleList:[]
+    ArticleList: []
   },
   mutations: {
     BLOGARTICLESTOTAL(state, data) {
@@ -78,10 +81,13 @@ export default new Vuex.Store({
     LINKSRAND(state, data) {
       state.LinksRand = data;
     },
+    LINKS(state, data) {
+      state.Links = data;
+    },
     DATALINE(state, data) {
       state.dataLine = data;
     },
-    ARTICLELIST(state, data){
+    ARTICLELIST(state, data) {
       state.ArticleList = data;
     }
   },
@@ -194,8 +200,8 @@ export default new Vuex.Store({
     async addComment({ commit }, {
       bId, rId, name, email, content
     } = {}) {
-      if(!commit) return;
-      
+      if (!commit) return;
+
       if (!name || !content) {
         return {
           code: -1,
@@ -305,5 +311,52 @@ export default new Vuex.Store({
       ];
       commit('DATALINE', dataLine_ok);
     },
+
+    async getAdminArticle({ commit }) {
+      const [error, res] = await AdminArticle();
+
+      if (error) {
+        return {
+          code: -1,
+          message: error.message
+        };
+      }
+
+      const { data: { code, message } } = res;
+
+      if (code === 0) {
+        commit('ARTICLELIST', res.data.result);
+      }
+
+      return {
+        code, message
+      }
+
+    },
+
+
+    async getLinks({ commit }) {
+
+      const [error, res] = await Links();
+
+      if (error) {
+        return {
+          code: -1,
+          message: error.message
+        };
+      }
+
+      const { data: { code, message } } = res;
+
+      if (code === 0) {
+        commit('LINKS', res.data.result);
+      }
+
+      return {
+        code, message
+      }
+
+    },
+
   }
 })
