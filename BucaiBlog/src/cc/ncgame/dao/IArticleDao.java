@@ -41,7 +41,7 @@ public interface IArticleDao {
 	 * @throws SQLException
 	 */
 	public boolean updateArticle(Article article) throws SQLException;
-
+	 List<Map<String, Object>> queryLatelyArticle() throws SQLException ;
 	/**
 	 * 分页查询
 	 * 

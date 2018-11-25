@@ -29,6 +29,7 @@ public class TagMapDaoImpl implements ITagMapDao {
 
 		return executeAllQuery;
 	}
+
 	@Override
 	public List<Map<String, Object>> getArticleIds(int tID) throws SQLException {
 
@@ -48,6 +49,15 @@ public class TagMapDaoImpl implements ITagMapDao {
 		List<Map<String, Object>> executeAllQuery = new DBUtil().executeAllQuery(sql);
 
 		return executeAllQuery;
+	}
+
+	@Override
+	public int deleteTagMaps(int id) throws SQLException {
+		String sql = "delete from tagMap where aID=?";
+
+		int executeUpdateGetID = new DBUtil().executeUpdateGetID(sql, id);
+
+		return executeUpdateGetID;
 	}
 
 }

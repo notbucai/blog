@@ -45,7 +45,7 @@ public class CrosFilter implements Filter {
 		res.addHeader("Access-Control-Allow-Origin", origin);
 		res.addHeader("Access-Control-Allow-Credentials", "true");
 //		Access-Control-Allow-Credentials
-		res.addHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
+		res.addHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,PUT,DELETE");
 		res.addHeader("Access-Control-Allow-Headers", "x-requested-with,content-type,content-length");
 		res.setCharacterEncoding("UTF-8");
 //		res.setStatus(404);

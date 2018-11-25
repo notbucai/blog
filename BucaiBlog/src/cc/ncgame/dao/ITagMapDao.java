@@ -14,4 +14,6 @@ public interface ITagMapDao {
 
 	List<Map<String, Object>> countTagIds() throws SQLException;
 	List<Map<String, Object>> getArticleIds(int tID) throws SQLException;
+
+	int deleteTagMaps(int id) throws SQLException;
 }

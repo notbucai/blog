@@ -58,6 +58,45 @@ public class ArticleServiceImpl implements IArticleService {
 	}
 
 	@Override
+	public String queryLatelyArticle() {
+
+		ArticleDaoImpl artcleDaoImpl = new ArticleDaoImpl();
+		JSONObject jsonObject = new JSONObject();
+		int code = -1;
+		String message = "Unknown Error";
+
+		try {
+
+			List<Map<String, Object>> queryAllArticle = artcleDaoImpl.queryLatelyArticle();
+
+			if (queryAllArticle == null) {
+				code = 1;
+				message = "查询失败";
+			} else if (queryAllArticle.size() <= 0) {
+				code = 0;
+				message = "木有数据";
+			} else {
+				code = 0;
+				message = "成功";
+				jsonObject.put("result", queryAllArticle);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		jsonObject.put("code", code);
+		jsonObject.put("message", message);
+
+		System.out.println(jsonObject.toString());
+
+		return jsonObject.toString();
+
+	}
+
+	@Override
 	public String queryArticlePage(int limit, int offset) {
 		ArticleDaoImpl artcleDaoImpl = new ArticleDaoImpl();
 		JSONObject jsonObject = new JSONObject();
@@ -241,11 +280,11 @@ public class ArticleServiceImpl implements IArticleService {
 				ArrayList<String> arrayList = new ArrayList<>();
 
 				TagDaoImpl tagDaoImpl = new TagDaoImpl();
+				TagMapDaoImpl tagMapDaoImpl = new TagMapDaoImpl();
 
 				for (String tag_name : tags) {
 					try {
 						int tagId = tagDaoImpl.getTagId(tag_name);
-						TagMapDaoImpl tagMapDaoImpl = new TagMapDaoImpl();
 
 						if (tagId == 0) {
 							Tag tag = new Tag(tag_name);
@@ -284,4 +323,116 @@ public class ArticleServiceImpl implements IArticleService {
 
 		return jsonObject.toString();
 	}
+
+	@Override
+	public String updateArticle(int id, String title, String info, String content, String[] tags) {
+		JSONObject jsonObject = new JSONObject();
+		int code = -1;
+		String message = "错误";
+		try {
+
+			HashMap<String, Object> hashMap = new HashMap<>();
+			Article article = new Article(id, title, content, info);
+			ArticleDaoImpl articleDaoImpl = new ArticleDaoImpl();
+
+			boolean updateArticle = articleDaoImpl.updateArticle(article);
+			if (updateArticle) {
+				int aID = id;
+				if (aID > 0) {
+					ArrayList<String> arrayList = new ArrayList<>();
+
+					TagDaoImpl tagDaoImpl = new TagDaoImpl();
+					TagMapDaoImpl tagMapDaoImpl = null;
+
+					try {
+						tagMapDaoImpl = new TagMapDaoImpl();
+						tagMapDaoImpl.deleteTagMaps(aID);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					for (String tag_name : tags) {
+						try {
+							int tagId = tagDaoImpl.getTagId(tag_name);
+
+							if (tagId == 0) {
+								Tag tag = new Tag(tag_name);
+								tagId = tagDaoImpl.insertTag(tag);
+							}
+
+							TagMap tagMap = new TagMap(aID, tagId);
+
+							tagMapDaoImpl.insertTagMap(tagMap);
+
+							arrayList.add(tag_name);
+
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+
+					}
+					code = 0;
+					message = "成功";
+					hashMap.put("id", aID);
+					hashMap.put("title", title);
+					hashMap.put("info", info);
+					hashMap.put("content", content);
+					hashMap.put("tags", arrayList);
+					jsonObject.put("result", hashMap);
+
+				}
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		jsonObject.put("code", code);
+		jsonObject.put("message", message);
+
+		return jsonObject.toString();
+	}
+
+	@Override
+	public String deleteArticle(int id) {
+
+		JSONObject jsonObject = new JSONObject();
+		int code = -1;
+		String message = "Unknown Error";
+
+		try {
+
+			try {
+				TagMapDaoImpl tagMapDaoImpl = new TagMapDaoImpl();
+				tagMapDaoImpl.deleteTagMaps(id);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			ArticleDaoImpl articleDaoImpl = new ArticleDaoImpl();
+			boolean deleteArticle = articleDaoImpl.deleteArticle(id);
+
+			if (deleteArticle) {
+				code = 0;
+				message = "删除失败";
+			} else {
+				code = 0;
+				message = "成功";
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		jsonObject.put("code", code);
+		jsonObject.put("message", message);
+
+		System.out.println(jsonObject.toString());
+
+		return jsonObject.toString();
+	}
+
 }

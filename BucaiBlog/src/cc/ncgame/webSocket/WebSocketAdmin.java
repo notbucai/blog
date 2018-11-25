@@ -4,13 +4,10 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.servlet.http.HttpSession;
-import javax.websocket.EncodeException;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -18,7 +15,6 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import org.apache.tomcat.websocket.WsSession;
 import org.hyperic.sigar.SigarException;
 import org.json.JSONObject;
 
@@ -34,11 +30,12 @@ public class WebSocketAdmin {
 	private final String nickname;
 	private Session session;
 	private boolean isAdmin;
-	private ExecutorService newSingleThreadExecutor = Executors.newSingleThreadExecutor();
+	private static ExecutorService newSingleThreadExecutor = Executors.newSingleThreadExecutor();
 
 	public WebSocketAdmin() {
 		nickname = GUEST_PREFIX + connectionIds.getAndIncrement();
 	}
+	private boolean flag = true;
 
 	@OnOpen
 	public void start(Session session, EndpointConfig config) {
@@ -55,8 +52,8 @@ public class WebSocketAdmin {
 
 			@Override
 			public void run() {
-				while (true) {
-
+				while (flag) {
+					
 					try {
 						int cpu = SystemUtil.cpu();
 						int memory = SystemUtil.memory();
@@ -83,7 +80,12 @@ public class WebSocketAdmin {
 
 					} catch (SigarException e) {
 						e.printStackTrace();
+						flag = false;
+					}catch (Exception e) {
+						e.printStackTrace();
+						flag = false;
 					}
+
 
 				}
 			}

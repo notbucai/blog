@@ -42,7 +42,18 @@ public class ArticleDaoImpl implements IArticleDao {
 
 	public List<Map<String, Object>> queryAllArticle() throws SQLException {
 
-		String sql = "select id,title,content,info,timestamp,end_timestamp,hits from article";
+		String sql = "select id,title,timestamp,end_timestamp,hits from article";
+		DBUtil dbUtil = new DBUtil();
+		List<Map<String, Object>> list = dbUtil.executeAllQuery(sql);
+
+//		System.out.println(list);
+
+		return list;
+	}
+	
+	public List<Map<String, Object>> queryLatelyArticle() throws SQLException {
+
+		String sql = "select id,title,timestamp,end_timestamp,hits from article order by timestamp desc limit 0,20";
 		DBUtil dbUtil = new DBUtil();
 		List<Map<String, Object>> list = dbUtil.executeAllQuery(sql);
 
@@ -68,9 +79,9 @@ public class ArticleDaoImpl implements IArticleDao {
 		System.out.println(date);
 		DBUtil dbUtil = new DBUtil();
 		if (timestamp <= 0) {
-			sql = "update article set title=?,content=?,info=?,hits=? where id=?";
+			sql = "update article set title=?,content=?,info=? where id=?";
 
-			executeUpdate = dbUtil.executeUpdate(sql, title, content, info, hits, id);
+			executeUpdate = dbUtil.executeUpdate(sql, title, content, info, id);
 		} else {
 			sql = "update article set title=?,content=?,info=?,timestamp=?,hits=? where id=?";
 

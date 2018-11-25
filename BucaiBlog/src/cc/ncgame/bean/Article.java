@@ -29,6 +29,13 @@ public class Article {
 		this.hits = hits;
 	}
 
+	public Article(int id, String title, String content, String info) {
+		this.id = id;
+		this.title = title;
+		this.content = content;
+		this.info = info;
+	}
+
 	public Article(int id, String title, String content, String info, int hits) {
 		this.id = id;
 		this.title = title;
