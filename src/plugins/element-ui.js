@@ -1,6 +1,7 @@
 import Vue from 'vue';
 
-import "@/assets/theme/index.css";
+import "@/assets/element-variables.scss";
+
 import {
     Pagination,
     Dialog,

@@ -1,9 +1,26 @@
 <template>
   <div class="login">
-    <h1>登 陆</h1>
-    <input type="text" name="sname" v-model="sname" placeholder="账号">
-    <input type="password" name="spwd" v-model="spwd" placeholder="密码">
-    <button @click="login">登陆</button>
+    <main class="login-main">
+      <div class="logo">
+        <img
+          src="@/assets/logo.png"
+          alt=""
+        >
+      </div>
+      <input
+        type="text"
+        name="sname"
+        v-model="sname"
+        placeholder="账号"
+      >
+      <input
+        type="password"
+        name="spwd"
+        v-model="spwd"
+        placeholder="密码"
+      >
+      <button @click="login">登陆</button>
+    </main>
   </div>
 </template>
 
@@ -50,34 +67,71 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+$bgColor: #f9a7b5;
+$bgImg: "https://acg.moedragon.com/api.php";
 .login {
-  width: 600px;
-  height: 400px;
-  margin: 200px auto;
-  h1 {
-    text-align: center;
-    margin: 20px 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  background: {
+    image: url($bgImg);
+    color: $bgColor;
+    repeat: no-repeat;
+    size: 100% 100%;
+    position: center center;
   }
-  input,
-  button {
-    display: block;
-    width: 100%;
-    padding: 0;
-    margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &-main {
+    width: 400px;
+    background: #fffe;
+    border-radius: 4px;
+    padding: 50px 40px 40px;
     box-sizing: border-box;
-    border: 1px solid #ddd;
-    height: 48px;
-    padding: 4px 8px;
-    margin: 50px auto;
-    &:focus {
-      outline: none;
-      border-color: #000;
+    .logo {
+      width: 68px;
+      height: 68px;
+      margin: 0 auto;
+      img {
+        width: 100%;
+      }
     }
-  }
-  button {
-    cursor: pointer;
-    background-color: #000;
-    color: #ddd;
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+    }
+    input,
+    button {
+      display: block;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      border: none;
+      border-bottom: 1px solid #e4eaec;
+      background-color: transparent;
+      height: 48px;
+      padding: 4px 8px;
+      margin: 40px auto;
+      &:focus {
+        transition: all 0.6s;
+        outline: none;
+        border-color: $bgColor;
+        border-bottom-width: 2px;
+      }
+    }
+
+    button {
+      cursor: pointer;
+      background-color: $bgColor;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 18px;
+    }
   }
 }
 </style>

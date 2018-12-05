@@ -8,6 +8,7 @@
 import { mapActions, mapState } from "vuex";
 
 import { WebSocketUrl } from "@/config/config.js";
+
 // 引入 ECharts 主模块
 var echarts = require("echarts/lib/echarts");
 require("echarts/lib/chart/line");

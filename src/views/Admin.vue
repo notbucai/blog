@@ -8,19 +8,19 @@
       </el-header>
       <el-container>
         <el-aside width="240px">
-          <el-menu :default-active="$route.path" :router="true" class="el-menu-vertical-demo" background-color="#000" text-color="#fff" active-text-color="#ffd04b">
+          <el-menu :default-active="$route.path" :router="true" class="el-menu-vertical-demo" background-color="#f9a7b5" text-color="#fff" active-text-color="#ff0">
 
             <el-menu-item index="/bucai_admin">
-              <i class="iconfont o icon-home"></i>
+              <i class="iconfont o oo icon-home"></i>
               <span slot="title">首页</span>
             </el-menu-item>
 
             <el-menu-item index="/bucai_admin/article">
-              <i class="el-icon-menu"></i>
+              <i class="el-icon-menu oo"></i>
               <span slot="title">文章管理</span>
             </el-menu-item>
             <el-menu-item index="/bucai_admin/links">
-              <i class="el-icon-menu"></i>
+              <i class="el-icon-menu oo"></i>
               <span slot="title">友链管理</span>
             </el-menu-item>
 
@@ -59,20 +59,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$Main-color: #909399;
+$Main-color: #f9a7b5;
+$bgColor:#f9a7b5;
 .el {
   &-header {
     background-color: #fff;
     display: flex;
     align-items: center;
-    box-shadow: 10px 1px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
     z-index: 10;
   }
   &-aside {
-    background-color: #000;
+    background-color: $bgColor;
   }
   &-menu {
     border-right: none;
+    .oo{
+      color: #fff;
+    }
   }
   &-breadcrumb {
     margin-bottom: 20px;
@@ -99,7 +103,7 @@ $Main-color: #909399;
 }
 
 .logo {
-  color: $Main-color * 0.6;
+  color: $Main-color;
   font-size: 22px;
   letter-spacing: 1px;
 }

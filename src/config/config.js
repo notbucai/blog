@@ -1,2 +1,2 @@
-export const ApiUrl = "http://localhost:222/BucaiBlog";
-export const WebSocketUrl = "ws://localhost:222/";
+export const ApiUrl = "http://111.230.249.24:8080/BucaiBlog";
+export const WebSocketUrl = "ws://111.230.249.24:8080/";

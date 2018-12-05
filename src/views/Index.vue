@@ -60,34 +60,41 @@ export default {
   },
   mounted() {
     window.addEventListener("scroll", this.scrollBottem);
+    // 监听滚动条
   },
   computed: {
     ...mapState(["blogArticles", "loading"])
   },
   methods: {
     ...mapActions(["nextArticlePage"]),
-    scrollBottem() {
-      let winHeight = window.innerHeight,
-        bodyHeight = document.documentElement.scrollHeight,
-        boduTop = document.documentElement.scrollTop;
+    scrollBottem() { // 滚动条触发事件
+    
+        // 获取一下必要的参数
+      let winHeight = window.innerHeight, //窗口高度
+        bodyHeight = document.documentElement.scrollHeight,// 页面高度
+        boduTop = document.documentElement.scrollTop;// 滚动条上的高度
 
+      // 如果 页面高度 减去 滚动条上的区域 再减去 可视区高度 小于等于100就说明到了底部
       if (bodyHeight - boduTop - winHeight <= 100) {
+        // 如果正再加载就跳出
         if (this.loadFlag) {
           return;
         }
-
+        // 将标志位置为真 表示真正加载
         this.loadFlag = true;
-
+        // 延时加载 ,,,,,因为本地加载速度太快  ... 就延时了一下
         setTimeout(async () => {
-          boduTop = document.documentElement.scrollTop;
+          // 之前的bug 
+          // boduTop = document.documentElement.scrollTop;
+          // 获取下一页的数据 ajax  nextArticlePage 
          const {code} = await this.nextArticlePage();
           // 进行一系列的xxoo
           // console.log(code, message);
-
+          // 如果后端传递的code等于3 说明数据加载完成 就将 事件移出 不再监听
           if (code == 3) {
             window.removeEventListener("scroll", this.scrollBottem);
           }
-
+          //  将标志位置为假 表示完成一次加载
           this.loadFlag = false;
           // document.documentElement.scrollTop = boduTop;
         }, 600);
