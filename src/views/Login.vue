@@ -118,7 +118,7 @@ $bgImg: "https://acg.moedragon.com/api.php";
       padding: 4px 8px;
       margin: 40px auto;
       &:focus {
-        transition: all 0.6s;
+        transition: all .8s;
         outline: none;
         border-color: $bgColor;
         border-bottom-width: 2px;

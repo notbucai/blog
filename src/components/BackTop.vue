@@ -56,14 +56,14 @@ export default {
   right: 20%;
   width: 40px;
   height: 40px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(249,167,181, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: background-color 0.6s;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(249,167,181, 0.7);
   }
 
   .iconfont {

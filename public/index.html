@@ -5,8 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>Blog</title>
+    <title>Bucai's Blog</title>
     <link rel="stylesheet" href="//at.alicdn.com/t/font_846512_ac6vz5bgo14.css">
+    <style>
+      #nest{
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+      }
+      #app{
+        min-height: 500px
+      }
+    </style>
   </head>
   <body>
     <noscript>
@@ -14,5 +27,6 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <div id="nest"></div>
   </body>
 </html>
