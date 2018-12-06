@@ -20,7 +20,7 @@
               <span slot="title">文章管理</span>
             </el-menu-item>
             <el-menu-item index="/bucai_admin/links">
-              <i class="el-icon-menu oo"></i>
+              <i class="el-icon-share oo"></i>
               <span slot="title">友链管理</span>
             </el-menu-item>
 
